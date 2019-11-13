@@ -26,15 +26,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val ret = inflater.inflate(R.layout.detail_fragment, container, false)
-
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setHomeButtonEnabled(true)
-        setHasOptionsMenu(true)
-
-        return ret
+        return inflater.inflate(R.layout.detail_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -42,8 +34,14 @@ class DetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
         //val mToolbar = toolbar;
-
+        setupList()
     }
+
+    fun setupList()
+    {
+        viewModel.getRingtones()
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
