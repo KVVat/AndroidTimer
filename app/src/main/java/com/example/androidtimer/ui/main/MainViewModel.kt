@@ -7,14 +7,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.androidtimer.R
 import com.example.androidtimer.adapter.RingtonesAdapter
+import com.example.androidtimer.model.RingtoneHolder
 
 
 class MainViewModel(application: Application) : AndroidViewModel(application)
 {
     // TODO: Implement the ViewModel
-
-
-    data class RingtoneHolder(val id:String,val url:String,val title:String="")
 
     val adapterRT = RingtonesAdapter(R.layout.row_ringtone,this)
     val ringtoneList = MutableLiveData<List<RingtoneHolder>>()
@@ -34,7 +32,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application)
             val id:String    = cursor.getString(RingtoneManager.ID_COLUMN_INDEX)
             val url:String   = cursor.getString(RingtoneManager.URI_COLUMN_INDEX)
             holders.add(RingtoneHolder(id,url,title))
-            //Log.d("Ringtone", "TITLE: " + cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX))
+            //Log.d("com.example.androidtimer.adapter.Ringtone", "TITLE: " + cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX))
         }
 
         ringtoneList.value = holders

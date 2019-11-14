@@ -18,12 +18,12 @@ class RingtonesAdapter(val layoutId:Int,val viewModel:MainViewModel)
     }
 
     override fun getItemCount(): Int {
-        Log.i("Ringtone","GetItemCount"+viewModel?.ringtoneList.value?.size)
+       // Log.i("com.example.androidtimer.adapter.Ringtone","GetItemCount"+viewModel?.ringtoneList.value?.size)
         return viewModel?.ringtoneList.value?.size?:0
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        Log.i("Ringtone","Create View holder")
+       // Log.i("com.example.androidtimer.adapter.Ringtone","Create View holder")
         //if(viewType == layoutId){
         val binding
                 = DataBindingUtil.inflate<ViewDataBinding>(layoutInflater,viewType,parent,false)
@@ -32,8 +32,10 @@ class RingtonesAdapter(val layoutId:Int,val viewModel:MainViewModel)
 
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.i("Ringtone","Bind")
+       // Log.i("com.example.androidtimer.adapter.Ringtone","Bind")
+
         val gh = holder as GenericViewHolder
+
         gh.bind(viewModel, position )
     }
 
@@ -49,18 +51,17 @@ class RingtonesAdapter(val layoutId:Int,val viewModel:MainViewModel)
         //val rootView: View = binding.root
 
         fun bind(viewModel: MainViewModel, position: Int) {
-            Log.i("Ringtone","anyway Called")
             //viewModel.fetchMovieImagesAt(position);
             //BR
-            binding.setVariable(BR.model, viewModel)
+            //binding.setVariable(BR.model, viewModel)
             binding.setVariable(BR.posRingtone, position)
-            /*
-            if (viewModel.mutableDetail.getValue() != null) {
-                val review =
-                    viewModel.mutableDetail.getValue().getReviews().getResults().get(position)
 
-                binding.setVariable(BR.review, review)
-            }*/
+            if (viewModel.ringtoneList.getValue() != null) {
+                var ringtoneList =
+                    viewModel.ringtoneList.getValue();//.get(position)//get(position)
+
+                binding.setVariable(BR.holder,ringtoneList?.get(position))
+            }
             binding.executePendingBindings()
         }
 
