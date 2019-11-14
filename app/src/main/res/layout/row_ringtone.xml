@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="posRingtone"
+            type="java.lang.Integer" />
+        <variable
+            name="model"
+            type="com.example.androidtimer.ui.main.MainViewModel" />
+    </data>
+<LinearLayout
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:id="@+id/ringtoneName"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:text="Hello World Hello World!" />
+</LinearLayout>
+</layout>
