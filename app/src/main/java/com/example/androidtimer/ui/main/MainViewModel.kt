@@ -3,7 +3,6 @@ package com.example.androidtimer.ui.main
 import android.app.Application
 import android.content.Context
 import android.media.RingtoneManager
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.androidtimer.R
@@ -39,7 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application)
         }
 
         ringtoneList.value = holders
-
+        adapterRT.notifyDataSetChanged()
         return ringtoneList
     }
 }

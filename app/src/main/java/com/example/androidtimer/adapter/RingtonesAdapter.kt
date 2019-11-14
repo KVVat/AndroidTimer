@@ -2,11 +2,9 @@ package com.example.androidtimer.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtimer.BR
 import com.example.androidtimer.ui.main.MainViewModel
@@ -14,12 +12,14 @@ import com.example.androidtimer.ui.main.MainViewModel
 class RingtonesAdapter(val layoutId:Int,val viewModel:MainViewModel)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
     init {
-        Log.i("Observe","Ringtones Adapter init")
+        Log.i("Observe","Ringtones Adapter init "+viewModel.toString())
     }
+
     override fun getItemCount(): Int {
         Log.i("Ringtone","GetItemCount"+viewModel?.ringtoneList.value?.size)
-        return 10//viewModel?.ringtoneList.value?.size?:0
+        return viewModel?.ringtoneList.value?.size?:0
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,6 +32,7 @@ class RingtonesAdapter(val layoutId:Int,val viewModel:MainViewModel)
 
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.i("Ringtone","Bind")
         val gh = holder as GenericViewHolder
         gh.bind(viewModel, position )
     }

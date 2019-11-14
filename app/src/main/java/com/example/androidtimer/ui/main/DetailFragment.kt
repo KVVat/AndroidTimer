@@ -1,24 +1,19 @@
 package com.example.androidtimer.ui.main
 
-import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtimer.R
-import com.example.androidtimer.adapter.RingtonesAdapter
 import com.example.androidtimer.databinding.DetailFragmentBinding
-import com.example.androidtimer.service.TimerService
-import kotlinx.android.synthetic.main.main_activity.*
 
 
 
@@ -38,25 +33,20 @@ class DetailFragment : Fragment() {
     ): View {
         val binding =
             DetailFragmentBinding.inflate(inflater,container,false);
-        Log.i("Observe","OnLoad Detail Fragment")
+
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
-        //binding.viewModel
 
-        mFragmentView =
-            inflater.inflate(R.layout.detail_fragment, container, false)
-        setupList()
-
+        mFragmentView = binding.root
         return binding.root
-        //inflater.inflate(R.layout.detail_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
          // TODO: Use the ViewModel
         //val mToolbar = toolbar;
-
+        setupList()
     }
 
     fun setupList()
@@ -66,16 +56,22 @@ class DetailFragment : Fragment() {
 
         Log.i("Observe","fragmentiew"+mFragmentView)
         if(mFragmentView != null){
-            val recyclerView = mFragmentView?.findViewById<RecyclerView>(R.id.listSounds);
+            val recyclerView = mFragmentView?.findViewById<RecyclerView>(R.id.listSounds)?.apply {
+                layoutManager =LinearLayoutManager(context)
+                adapter =  viewModel.adapterRT//RingtonesAdapter(R.layout.row_ringtone,viewModel)
+
+                setHasFixedSize(true)
+
+                Log.i("Observe","recyclerView applied")
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            }
             Log.i("Observe","recyclerView"+recyclerView)
 
-            recyclerView?.adapter = RingtonesAdapter(R.layout.row_ringtone,viewModel)
-            //recyclerView?.setHasFixedSize(true)
-            recyclerView?.setLayoutManager(LinearLayoutManager(context))
             //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             viewModel.getRingtones().observe(this, Observer{
 
                 Log.i("Observe ","Mutable Data Changed"+it.toString())
+                viewModel.adapterRT.notifyDataSetChanged()
                 //
             })
         }
